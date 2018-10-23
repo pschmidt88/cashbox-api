@@ -25,9 +25,15 @@ class Player extends JsonResource
             'fines' => $this->when(
                 $this->resource->getFines()->isNotEmpty(),
                 $this->resource->getFines()),
-            'balance' => $this->when($this->resource->getBalance() > 0,
+            'balance' => $this->when($this->hasBalance(),
                 $this->resource->getBalance(),
                 0),
         ];
+    }
+
+    private function hasBalance(): bool
+    {
+        return $this->resource !== null &&
+            $this->resource->getBalance() > 0;
     }
 }

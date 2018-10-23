@@ -32,6 +32,11 @@ class PlayerController extends Controller
         );
     }
 
+    /**
+     * @param Request $request
+     * @return JsonResource
+     * @throws \Exception
+     */
     public function createPlayer(Request $request): JsonResource
     {
         $validated = $request->validate([
@@ -46,6 +51,12 @@ class PlayerController extends Controller
         return JsonResource::make($player);
     }
 
+    /**
+     * @param string $id
+     * @param Request $request
+     * @return JsonResource
+     * @throws \Exception
+     */
     public function addFine(string $id, Request $request): JsonResource
     {
         $playerId = PlayerProcessId::fromString($id);
