@@ -1,0 +1,43 @@
+version: '2'
+
+services:
+  app:
+    build:
+      context: ./
+      dockerfile: ./docker/app-dev.dockerfile
+    working_dir: /var/www
+    volumes:
+    - ./:/var/www
+    environment:
+      DB_PORT: 3306
+      DB_HOST: database
+      XDEBUG_CONFIG: remote_enable=1 remote_port=9001 idekey=PHPSTORM remote_host=192.168.1.104
+      PHP_IDE_CONFIG: serverName=docker
+
+  web:
+    build:
+      context: ./docker
+      dockerfile: ./web.dockerfile
+    working_dir: /var/www
+    volumes_from:
+    - app
+    ports:
+    - 8001:80
+
+  database:
+    image: mariadb:10.3
+    volumes:
+    - dbdata:/var/lib/mysql
+    environment:
+    - "MYSQL_USER=homestead"
+    - "MYSQL_PASSWORD=secret"
+    - "MYSQL_DATABASE=homestead"
+    - "MYSQL_ROOT_PASSWORD=secret"
+    ports:
+    - "33060:3306"
+
+  cache:
+    image: redis:4.0-alpine
+
+volumes:
+  dbdata:
