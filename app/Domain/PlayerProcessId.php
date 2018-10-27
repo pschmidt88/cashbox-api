@@ -27,6 +27,15 @@ class PlayerProcessId implements AggregateRootId
     }
 
     /**
+     * @return PlayerProcessId
+     * @throws \Exception
+     */
+    public static function create(): PlayerProcessId
+    {
+        return new static(Uuid::uuid4()->toString());
+    }
+
+    /**
      * @return string
      */
     public function toString(): string
