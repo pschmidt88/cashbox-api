@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Domain\Commands\CreatePlayer;
 use App\Domain\Commands\ImposeFine;
 use App\Domain\Player;
-use App\Domain\PlayerProcessId;
+use App\Domain\PlayerId;
 use App\Http\Resources\Player as PlayerResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -55,7 +55,7 @@ class PlayerController extends Controller
      */
     public function addFine(string $id, Request $request): JsonResource
     {
-        $playerId = PlayerProcessId::fromString($id);
+        $playerId = PlayerId::fromString($id);
         /** @var Player $player */
         $player = $this->repository->retrieve($playerId);
 
@@ -76,7 +76,7 @@ class PlayerController extends Controller
 
     public function findById($id): JsonResource
     {
-        $playerId = PlayerProcessId::fromString($id);
+        $playerId = PlayerId::fromString($id);
         $playerProcess = $this->repository->retrieve($playerId);
 
         return PlayerResource::make($playerProcess);

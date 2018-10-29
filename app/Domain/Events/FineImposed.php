@@ -2,9 +2,7 @@
 
 namespace App\Domain\Events;
 
-use Illuminate\Support\Carbon;
 use Prooph\EventSourcing\AggregateChanged;
-use Ramsey\Uuid\Uuid;
 
 class FineImposed extends AggregateChanged
 {

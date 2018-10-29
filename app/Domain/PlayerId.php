@@ -2,18 +2,17 @@
 
 namespace App\Domain;
 
-use EventSauce\EventSourcing\AggregateRootId;
 use Ramsey\Uuid\Uuid;
 
-class PlayerProcessId implements AggregateRootId
+final class PlayerId
 {
     /**
-     * @var \Ramsey\Uuid\Uuid
+     * @var Uuid
      */
     private $playerId;
 
     /**
-     * PlayerProcessId constructor.
+     * PlayerId constructor.
      *
      * @param string $aggregateRootId
      */
@@ -27,10 +26,10 @@ class PlayerProcessId implements AggregateRootId
     }
 
     /**
-     * @return PlayerProcessId
+     * @return PlayerId
      * @throws \Exception
      */
-    public static function create(): PlayerProcessId
+    public static function create(): PlayerId
     {
         return new static(Uuid::uuid4()->toString());
     }
@@ -44,11 +43,20 @@ class PlayerProcessId implements AggregateRootId
     }
 
     /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toString();
+    }
+
+
+    /**
      * @param string $aggregateRootId
      *
      * @return static
      */
-    public static function fromString(string $aggregateRootId): AggregateRootId
+    public static function fromString(string $aggregateRootId): PlayerId
     {
         return new static($aggregateRootId);
     }

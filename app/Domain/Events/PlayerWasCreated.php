@@ -2,6 +2,7 @@
 
 namespace App\Domain\Events;
 
+use App\Domain\PlayerId;
 use Prooph\EventSourcing\AggregateChanged;
 
 class PlayerWasCreated extends AggregateChanged
@@ -51,6 +52,14 @@ class PlayerWasCreated extends AggregateChanged
 //    {
 //        return $this->id;
 //    }
+
+    /**
+     * @return PlayerId
+     */
+    public function getPlayerId(): PlayerId
+    {
+        return PlayerId::fromString($this->aggregateId());
+    }
 
     /**
      * @return string
