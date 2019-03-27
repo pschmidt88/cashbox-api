@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use App\Domain\Consumer\PlayerDetailsView;
-use App\Infrastructure\Repository\LaravelDBMessageRepository;
+use App\Infrastructure\Repository\DatabaseMessageRepository;
 use EventSauce\EventSourcing\MessageDispatcher;
 use EventSauce\EventSourcing\MessageRepository;
 use EventSauce\EventSourcing\Serialization\ConstructingMessageSerializer;
@@ -21,10 +21,9 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->app->bind(MessageSerializer::class, ConstructingMessageSerializer::class);
-        $this->app->bind(MessageRepository::class, LaravelDBMessageRepository::class);
+        $this->app->bind(MessageRepository::class, DatabaseMessageRepository::class);
         $this->app->bind(MessageDispatcher::class, function () {
             return new SynchronousMessageDispatcher();
-//            return new SynchronousMessageDispatcher(new PlayerDetailsView());
         });
     }
 

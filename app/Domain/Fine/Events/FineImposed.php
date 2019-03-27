@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\Events;
+namespace App\Domain\Fine\Events;
 
 use EventSauce\EventSourcing\Serialization\SerializableEvent;
 use Illuminate\Support\Carbon;

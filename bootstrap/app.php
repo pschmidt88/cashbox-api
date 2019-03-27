@@ -1,5 +1,13 @@
 <?php
 
+require_once __DIR__.'/../vendor/autoload.php';
+
+try {
+    (new \Dotenv\Dotenv(dirname(__DIR__)))->load();
+} catch (\Dotenv\Exception\InvalidPathException $e) {
+    //
+}
+
 /*
 |--------------------------------------------------------------------------
 | Create The Application
@@ -11,9 +19,11 @@
 |
 */
 
-$app = new Illuminate\Foundation\Application(
-    dirname(__DIR__)
-);
+//$app = new Illuminate\Foundation\Application(
+//    dirname(__DIR__)
+//);
+
+$app = new \Laravel\Lumen\Application(dirname(__DIR__));
 
 /*
 |--------------------------------------------------------------------------
@@ -27,8 +37,8 @@ $app = new Illuminate\Foundation\Application(
 */
 
 $app->singleton(
-    Illuminate\Contracts\Http\Kernel::class,
-    App\Http\Kernel::class
+    Illuminate\Contracts\Debug\ExceptionHandler::class,
+    App\Exceptions\Handler::class
 );
 
 $app->singleton(
@@ -36,10 +46,7 @@ $app->singleton(
     App\Console\Kernel::class
 );
 
-$app->singleton(
-    Illuminate\Contracts\Debug\ExceptionHandler::class,
-    App\Exceptions\Handler::class
-);
+$app->register(\App\Providers\AppServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------
@@ -51,5 +58,12 @@ $app->singleton(
 | from the actual running of the application and sending responses.
 |
 */
+
+$app->router->group([
+    'prefix' => 'api',
+    'namespace' => 'App\Http\Controllers',
+], function ($router) {
+    require __DIR__.'/../routes/api.php';
+});
 
 return $app;

@@ -12,7 +12,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Ramsey\Uuid\Uuid;
 
-class LaravelDBMessageRepository implements MessageRepository
+class DatabaseMessageRepository implements MessageRepository
 {
     const TABLE_NAME = 'event_stream';
 
@@ -45,12 +45,12 @@ class LaravelDBMessageRepository implements MessageRepository
             ];
         }
 
-        DB::table(self::TABLE_NAME)->insert($insert);
+        app('db')->table(self::TABLE_NAME)->insert($insert);
     }
 
     public function retrieveAll(AggregateRootId $id): Generator
     {
-        $messages = DB::table(self::TABLE_NAME)
+        $messages = app('db')->table(self::TABLE_NAME)
             ->where('aggregate_root_id', $id->toString())
             ->orderBy('created_at', 'asc')
             ->get(['payload']);

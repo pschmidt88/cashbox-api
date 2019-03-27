@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\Commands;
+namespace App\Domain\Player\Commands;
 
 final class CreatePlayer
 {
@@ -35,6 +35,4 @@ final class CreatePlayer
     {
         return $this->lastName;
     }
-
-
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\Commands;
+namespace App\Domain\Fine\Commands;
 
 use Illuminate\Support\Carbon;
 

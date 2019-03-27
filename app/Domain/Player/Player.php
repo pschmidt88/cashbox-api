@@ -1,18 +1,19 @@
 <?php
 
-namespace App\Domain;
+namespace App\Domain\Player;
 
-use App\Domain\Commands\CreatePlayer;
-use App\Domain\Commands\ImposeFine;
-use App\Domain\Events\FineImposed;
-use App\Domain\Events\PlayerCreated;
-use App\Infrastructure\ArrayableAggregateRoot;
+use App\Domain\Fine\Commands\ImposeFine;
+use App\Domain\Fine\Events\FineImposed;
+use App\Domain\Fine\Fine;
+use App\Domain\Player\Commands\CreatePlayer;
+use App\Domain\Player\Events\PlayerCreated;
+use EventSauce\EventSourcing\AggregateRoot;
 use EventSauce\EventSourcing\AggregateRootBehaviour\AggregateRootBehaviour;
 use EventSauce\EventSourcing\AggregateRootId;
 use Illuminate\Support\Collection;
 use Ramsey\Uuid\Uuid;
 
-class Player implements ArrayableAggregateRoot
+class Player implements AggregateRoot
 {
     use AggregateRootBehaviour;
 
@@ -42,7 +43,7 @@ class Player implements ArrayableAggregateRoot
      */
     public static function createPlayer(CreatePlayer $command): Player
     {
-        $instance = new static(PlayerProcessId::fromString(Uuid::uuid4()->toString()));
+        $instance = new static(PlayerId::fromString(Uuid::uuid4()->toString()));
         $instance->recordThat(
             new PlayerCreated($command->firstName(), $command->lastName()));
 
@@ -124,5 +125,10 @@ class Player implements ArrayableAggregateRoot
     private function addToBalance(int $amount)
     {
         $this->balance += $amount;
+    }
+
+    public function exists()
+    {
+        return $this->aggregateRootVersion > 0;
     }
 }

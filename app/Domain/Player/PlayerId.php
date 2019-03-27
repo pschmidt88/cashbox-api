@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Domain;
+namespace App\Domain\Player;
 
 use EventSauce\EventSourcing\AggregateRootId;
 use Ramsey\Uuid\Uuid;
 
-class PlayerProcessId implements AggregateRootId
+class PlayerId implements AggregateRootId
 {
     /**
      * @var \Ramsey\Uuid\Uuid
@@ -13,7 +13,7 @@ class PlayerProcessId implements AggregateRootId
     private $playerId;
 
     /**
-     * PlayerProcessId constructor.
+     * PlayerId constructor.
      *
      * @param string $aggregateRootId
      */

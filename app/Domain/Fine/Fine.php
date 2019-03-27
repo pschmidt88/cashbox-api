@@ -1,12 +1,15 @@
 <?php
 
-namespace App\Domain;
+namespace App\Domain\Fine;
 
-use Illuminate\Contracts\Support\Arrayable;
+use EventSauce\EventSourcing\AggregateRoot;
+use EventSauce\EventSourcing\AggregateRootBehaviour\AggregateRootBehaviour;
 use Illuminate\Support\Carbon;
 
-class Fine implements Arrayable
+class Fine implements AggregateRoot
 {
+    use AggregateRootBehaviour;
+
     /** @var string */
     private $offence;
     /** @var int */

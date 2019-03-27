@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Domain\Events;
+namespace App\Domain\Player\Events;
 
 use EventSauce\EventSourcing\Serialization\SerializableEvent;
 use Ramsey\Uuid\Uuid;
 
 class PlayerCreated implements SerializableEvent
 {
-    /** @var \Ramsey\Uuid\UuidInterface $id */
+    /** @var Uuid $id */
     private $id;
     /** @var string */
     private $firstName;
@@ -46,9 +46,9 @@ class PlayerCreated implements SerializableEvent
     }
 
     /**
-     * @return \Ramsey\Uuid\UuidInterface
+     * @return Uuid
      */
-    public function getId(): \Ramsey\Uuid\UuidInterface
+    public function getId(): Uuid
     {
         return $this->id;
     }
