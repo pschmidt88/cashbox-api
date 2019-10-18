@@ -29,7 +29,7 @@ class Player implements ArrayableAggregateRoot
      *
      * @param AggregateRootId $id
      */
-    public function __construct(AggregateRootId $id)
+    private function __construct(AggregateRootId $id)
     {
         $this->aggregateRootId = $id;
         $this->fines = new Collection();
@@ -86,39 +86,6 @@ class Player implements ArrayableAggregateRoot
             'fines' => $this->fines,
             'balance' => $this->balance
         ];
-    }
-
-
-    /**
-     * @return string
-     */
-    public function getFirstName(): string
-    {
-        return $this->firstName;
-    }
-
-    /**
-     * @return string
-     */
-    public function getLastName(): string
-    {
-        return $this->lastName;
-    }
-
-    /**
-     * @return Collection
-     */
-    public function getFines(): Collection
-    {
-        return $this->fines;
-    }
-
-    /**
-     * @return int
-     */
-    public function getBalance(): int
-    {
-        return $this->balance;
     }
 
     private function addToBalance(int $amount)
